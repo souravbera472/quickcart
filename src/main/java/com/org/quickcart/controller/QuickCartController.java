@@ -1,7 +1,8 @@
 package com.org.quickcart.controller;
 
+import com.org.quickcart.logger.QLogger;
 import com.org.quickcart.model.FilterParam;
-import com.org.quickcart.model.Product;
+import com.org.quickcart.entity.Product;
 import com.org.quickcart.service.QuickCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ public class QuickCartController {
 
     @GetMapping("/hello")
     public ResponseEntity<String> getHello(){
+        QLogger.info("This is Logger...");
         return new ResponseEntity<>("Hello World",HttpStatus.OK);
     }
 

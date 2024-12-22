@@ -1,4 +1,4 @@
-package com.org.quickcart.model;
+package com.org.quickcart.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
