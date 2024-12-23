@@ -1,20 +1,22 @@
 package com.org.quickcart.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @AllArgsConstructor
-@Getter
-@Setter
+@Data
 @Entity
+@NoArgsConstructor
 public class Product {
-    private String category;
+
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-    private int price;
+    private double price;
     private String name;
     private String description;
+    private String category;
 }
