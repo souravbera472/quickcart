@@ -1,10 +1,8 @@
 package com.org.quickcart.service;
 
-import com.org.quickcart.exception.EmailAlreadyExistException;
-import com.org.quickcart.exception.InvalidUserException;
-import com.org.quickcart.exception.UserNotFoundException;
+import com.org.quickcart.exception.*;
 import com.org.quickcart.model.Role;
-import com.org.quickcart.model.User;
+import com.org.quickcart.entity.User;
 import com.org.quickcart.repository.UserRepository;
 import com.org.quickcart.util.JwtUtil;
 import lombok.AllArgsConstructor;
@@ -38,14 +36,14 @@ public class UserService {
     public User findById(String id){
         Optional<User> tempUser = userRepository.findById(id);
         if(tempUser.isEmpty()){
-            throw new UserNotFoundException("User", "ID", id);
+            throw new CustomException(ErrorCode.USER_NOT_FOUND);
         }
         return tempUser.get();
     }
 
     public User findUserByEmail(String email){
         if(userRepository.findByEmail(email).isEmpty()){
-            throw new UserNotFoundException("User", "Email", email);
+            throw new CustomException(ErrorCode.USER_NOT_FOUND);
         }
         return userRepository.findByEmail(email).get();
     }

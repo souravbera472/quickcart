@@ -1,5 +1,6 @@
-package com.org.quickcart.model;
+package com.org.quickcart.entity;
 
+import com.org.quickcart.model.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

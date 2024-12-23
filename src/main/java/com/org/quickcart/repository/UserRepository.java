@@ -1,6 +1,6 @@
 package com.org.quickcart.repository;
 
-import com.org.quickcart.model.User;
+import com.org.quickcart.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

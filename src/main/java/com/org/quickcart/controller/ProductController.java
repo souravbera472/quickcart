@@ -1,7 +1,7 @@
 package com.org.quickcart.controller;
 
 import com.org.quickcart.model.FilterParam;
-import com.org.quickcart.model.Product;
+import com.org.quickcart.entity.Product;
 import com.org.quickcart.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

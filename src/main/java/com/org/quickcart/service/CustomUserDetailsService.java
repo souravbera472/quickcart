@@ -1,6 +1,6 @@
 package com.org.quickcart.service;
 
-import com.org.quickcart.model.User;
+import com.org.quickcart.entity.User;
 import com.org.quickcart.repository.UserRepository;
 import com.org.quickcart.util.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;

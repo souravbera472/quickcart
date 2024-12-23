@@ -3,7 +3,7 @@ package com.org.quickcart.service;
 import com.org.quickcart.exception.ProductAlreadyExistException;
 import com.org.quickcart.exception.ProductNotFoundException;
 import com.org.quickcart.model.FilterParam;
-import com.org.quickcart.model.Product;
+import com.org.quickcart.entity.Product;
 import com.org.quickcart.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
 package com.org.quickcart.util;
 
-import com.org.quickcart.model.User;
+import com.org.quickcart.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;

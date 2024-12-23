@@ -1,6 +1,6 @@
 package com.org.quickcart.controller;
 
-import com.org.quickcart.model.User;
+import com.org.quickcart.entity.User;
 import com.org.quickcart.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
