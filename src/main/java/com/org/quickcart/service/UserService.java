@@ -106,10 +106,12 @@ public class UserService {
 
     public String login(User user) {
         try {
+            String password = user.getPassword();
+            user = userRepository.findByEmail(user.getEmail()).get();
             Authentication authenticate = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())
+                    new UsernamePasswordAuthenticationToken(user.getEmail(), password)
             );
-            return jwtUtil.generateToken(user);
+            return jwtUtil.generateToken(user, String.valueOf(user.getRole()));
         } catch (BadCredentialsException | AccountExpiredException | DisabledException e) {
             QLogger.warn("Invalid user credentials or account issues: " + e.getMessage());
             throw new CustomException(ErrorCode.UNAUTHORIZED);
