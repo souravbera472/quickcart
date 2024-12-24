@@ -17,12 +17,12 @@ public class UserController {
 
     private UserService userService;
 
-    @PostMapping("register")
+    @PostMapping("/register")
     public ResponseEntity<User> addUser(@RequestBody User user){
         return new ResponseEntity<>(userService.addUser(user), HttpStatus.CREATED);
     }
 
-    @PostMapping("login")
+    @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestBody User user){
         return new ResponseEntity<>(userService.login(user), HttpStatus.OK);
     }
@@ -32,17 +32,17 @@ public class UserController {
         return new ResponseEntity<>(userService.getAllUser(), HttpStatus.OK);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<User> findUserById(@PathVariable String id){
         return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable String id, @RequestBody Map<String, String> map){
         return new ResponseEntity<>(userService.updateUser(id, map), HttpStatus.OK);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable String id){
         return new ResponseEntity<>(userService.deleteUser(id), HttpStatus.OK);
     }

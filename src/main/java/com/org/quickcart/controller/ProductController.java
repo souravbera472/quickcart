@@ -34,17 +34,17 @@ public class ProductController {
         return new ResponseEntity<>(productService.addProduct(product), HttpStatus.CREATED);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable String id){
         return new ResponseEntity<>(productService.getProductById(id), HttpStatus.OK);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable String id, @RequestBody Map<String, Object> map){
         return new ResponseEntity<>(productService.updateProduct(id, map), HttpStatus.OK);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteProduct(@PathVariable String id){
         return new ResponseEntity<>(productService.deleteProduct(id), HttpStatus.OK);
     }

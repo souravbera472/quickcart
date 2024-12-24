@@ -1,6 +1,8 @@
 package com.org.quickcart.service;
 
 import com.org.quickcart.entity.User;
+import com.org.quickcart.exception.CustomException;
+import com.org.quickcart.exception.ErrorCode;
 import com.org.quickcart.repository.UserRepository;
 import com.org.quickcart.util.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> user = userRepository.findByEmail(username);
         if(user.isEmpty()){
-            throw new UsernameNotFoundException("User not found exception");
+            throw new CustomException(ErrorCode.USER_NOT_FOUND);
         }
 
         return new CustomUserDetails(user.get());

@@ -1,6 +1,11 @@
 package com.org.quickcart.util;
 
+import com.org.quickcart.exception.CustomException;
+import com.org.quickcart.exception.ErrorCode;
+import com.org.quickcart.logger.QLogger;
 import com.org.quickcart.service.CustomUserDetailsService;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,28 +32,32 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authHeader = request.getHeader("Authorization");
-
         if(authHeader == null || !authHeader.startsWith("Bearer")){
+            QLogger.error("Provide token to accessing apis.");
             filterChain.doFilter(request, response);
             return;
         }
 
         String token = authHeader.substring(7);
-        String email = jwtUtil.extractUserName(token);
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if(email != null && authentication == null){
-            UserDetails userDetails = userDetailsService.loadUserByUsername(email);
-
-            if(jwtUtil.isTokenValid(token, userDetails)){
-                UsernamePasswordAuthenticationToken authenticationToken =
-                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        try {
+            String email = jwtUtil.extractUserName(token);
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if(email != null && authentication == null){
+                UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+                if(jwtUtil.isTokenValid(token, userDetails)){
+                    UsernamePasswordAuthenticationToken authenticationToken =
+                            new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                    authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                }
             }
+        } catch (ExpiredJwtException e){
+            QLogger.error("Token expired: " + e.getMessage());
+            throw new CustomException(ErrorCode.SESSION_EXPIRED);
+        } catch (JwtException e) {
+            QLogger.error("Invalid token: " + e.getMessage());
+            throw new CustomException(ErrorCode.INVALID_TOKEN);
         }
-
         filterChain.doFilter(request, response);
     }
 }
